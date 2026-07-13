@@ -57,11 +57,11 @@ export default async function BlogPostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="rasta-gradient-bg pt-28 pb-12">
+      <div className="safe-top rasta-gradient-bg pb-10 pt-24 sm:pb-12 sm:pt-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <Link
             href="/blog"
-            className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-jamaica-gold hover:text-white"
+            className="mb-6 inline-flex min-h-12 touch-manipulation items-center gap-2 rounded-lg px-2 text-sm font-semibold text-jamaica-gold active:text-white sm:hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
             All Guides
@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: Props) {
           <span className="rounded-full bg-jamaica-gold/20 px-3 py-1 text-xs font-bold text-jamaica-gold">
             {post.category}
           </span>
-          <h1 className="mt-4 font-display text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+          <h1 className="mt-4 font-display text-2xl font-bold leading-tight text-white sm:text-3xl lg:text-4xl">
             {post.title}
           </h1>
           <div className="mt-4 flex flex-wrap gap-4 text-sm text-jamaica-gold-light/80">
@@ -90,9 +90,9 @@ export default async function BlogPostPage({ params }: Props) {
         <JamaicaStripe variant="flag" className="mt-10" />
       </div>
 
-      <article className="bg-white py-12 sm:py-16">
+      <article className="section-py bg-white">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <p className="text-lg font-medium leading-relaxed text-jamaica-black-soft">
+          <p className="text-base font-medium leading-relaxed text-jamaica-black-soft sm:text-lg">
             {post.excerpt}
           </p>
 
@@ -100,7 +100,7 @@ export default async function BlogPostPage({ params }: Props) {
             {post.sections.map((section, i) => (
               <div key={i}>
                 {section.heading && (
-                  <h2 className="font-display text-2xl font-bold text-jamaica-black">
+                  <h2 className="font-display text-xl font-bold text-jamaica-black sm:text-2xl">
                     {section.heading}
                   </h2>
                 )}
@@ -116,7 +116,7 @@ export default async function BlogPostPage({ params }: Props) {
             ))}
           </div>
 
-          <div className="mt-14 rounded-2xl bg-jamaica-cream p-8 text-center">
+          <div className="mt-10 rounded-2xl bg-jamaica-cream p-5 text-center sm:mt-14 sm:p-8">
             <h3 className="font-display text-xl font-bold text-jamaica-black">
               Need a transfer or tour?
             </h3>
@@ -124,7 +124,7 @@ export default async function BlogPostPage({ params }: Props) {
               Get a free USD quote from {siteConfig.business.name} — WhatsApp reply within 2 hours.
             </p>
             <div className="mt-6">
-              <Button href="/#contact" variant="primary">
+              <Button href="/#contact" variant="primary" fullWidthMobile>
                 Get a Free Quote
               </Button>
             </div>

@@ -15,23 +15,20 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div
-      className={`max-w-3xl ${align === "center" ? "mx-auto text-center" : "text-left"}`}
+      className={`max-w-3xl px-1 ${align === "center" ? "mx-auto text-center" : "text-left"}`}
     >
       {eyebrow && (
         <p
-          className={`mb-3 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] ${
+          className={`mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] sm:text-sm sm:tracking-[0.2em] ${
             light ? "text-jamaica-gold" : "text-jamaica-green"
           }`}
         >
-          <span
-            className={`inline-block h-2 w-2 rounded-full ${light ? "bg-rasta-red" : "bg-rasta-red"}`}
-            aria-hidden="true"
-          />
+          <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-rasta-red" aria-hidden="true" />
           {eyebrow}
         </p>
       )}
       <h2
-        className={`font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl ${
+        className={`font-display text-2xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl ${
           light ? "text-white" : "text-jamaica-black"
         }`}
       >
@@ -39,17 +36,17 @@ export function SectionHeading({
       </h2>
       {description && (
         <p
-          className={`mt-4 text-lg leading-relaxed ${
+          className={`mt-3 text-base leading-relaxed sm:mt-4 sm:text-lg ${
             light ? "text-jamaica-gold-light/90" : "text-jamaica-black-soft/80"
           }`}
         >
           {description}
         </p>
       )}
-      <div className={`mt-5 flex gap-1 ${align === "center" ? "justify-center" : ""}`}>
-        <span className="h-1 w-8 rounded-full bg-jamaica-green" />
-        <span className="h-1 w-8 rounded-full bg-jamaica-gold" />
-        <span className="h-1 w-8 rounded-full bg-rasta-red" />
+      <div className={`mt-4 flex gap-1 sm:mt-5 ${align === "center" ? "justify-center" : ""}`}>
+        <span className="h-1 w-6 rounded-full bg-jamaica-green sm:w-8" />
+        <span className="h-1 w-6 rounded-full bg-jamaica-gold sm:w-8" />
+        <span className="h-1 w-6 rounded-full bg-rasta-red sm:w-8" />
       </div>
     </div>
   );

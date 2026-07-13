@@ -8,7 +8,7 @@ import { formatPrice } from "@/lib/utils";
 
 export function Excursions() {
   return (
-    <section id="tours" className="relative bg-jamaica-black py-20 sm:py-28">
+    <section id="tours" className="section-py relative bg-jamaica-black">
       <div className="absolute inset-0 pattern-lion opacity-50" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -18,7 +18,7 @@ export function Excursions() {
           light
         />
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2">
+        <div className="mt-10 grid gap-6 sm:mt-14 sm:grid-cols-2 sm:gap-8">
           {siteConfig.excursions.map((tour) => (
             <article
               key={tour.name}
@@ -38,8 +38,8 @@ export function Excursions() {
                   </span>
                 )}
               </div>
-              <div className="p-6">
-                <h3 className="font-display text-2xl font-bold text-jamaica-black">
+              <div className="p-4 sm:p-6">
+                <h3 className="font-display text-xl font-bold text-jamaica-black sm:text-2xl">
                   {tour.name}
                 </h3>
                 <div className="mt-3 flex flex-wrap gap-4 text-sm text-jamaica-black-soft/80">
@@ -62,7 +62,7 @@ export function Excursions() {
                   ))}
                 </ul>
                 <div className="mt-6">
-                  <Button href="#contact" variant="secondary" className="w-full sm:w-auto">
+                  <Button href="#contact" variant="secondary" fullWidthMobile>
                     Book This Tour
                   </Button>
                 </div>

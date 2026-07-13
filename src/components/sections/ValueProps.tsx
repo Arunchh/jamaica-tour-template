@@ -3,13 +3,13 @@ import { JamaicaStripe } from "@/components/ui/JamaicaStripe";
 
 export function ValueProps() {
   return (
-    <section className="bg-jamaica-cream py-16 sm:py-20">
+    <section className="section-py bg-jamaica-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-4 sm:gap-8 md:grid-cols-3">
           {siteConfig.valueProps.map((prop, i) => (
             <article
               key={prop.title}
-              className="relative overflow-hidden rounded-2xl border-2 border-jamaica-green/10 bg-white p-6 shadow-sm"
+              className="relative overflow-hidden rounded-2xl border-2 border-jamaica-green/10 bg-white p-5 shadow-sm sm:p-6"
             >
               <div
                 className={`absolute left-0 top-0 h-1 w-full ${

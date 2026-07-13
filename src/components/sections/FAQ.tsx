@@ -9,7 +9,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-jamaica-cream py-20 sm:py-28">
+    <section id="faq" className="section-py bg-jamaica-cream">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="FAQ"
@@ -17,7 +17,7 @@ export function FAQ() {
           description="Resort transfers, pricing, payment, and group travel — answered straight."
         />
 
-        <div className="mt-12 space-y-3">
+        <div className="mt-8 space-y-2 sm:mt-12 sm:space-y-3">
           {siteConfig.faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
@@ -27,11 +27,13 @@ export function FAQ() {
               >
                 <button
                   type="button"
-                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                  className="flex min-h-12 w-full touch-manipulation items-center justify-between gap-3 px-4 py-4 text-left active:bg-jamaica-cream sm:gap-4 sm:px-5"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   aria-expanded={isOpen}
                 >
-                  <span className="font-bold text-jamaica-black">{faq.question}</span>
+                  <span className="text-sm font-bold leading-snug text-jamaica-black sm:text-base">
+                    {faq.question}
+                  </span>
                   <ChevronDown
                     className={`h-5 w-5 shrink-0 text-jamaica-green transition-transform ${
                       isOpen ? "rotate-180" : ""

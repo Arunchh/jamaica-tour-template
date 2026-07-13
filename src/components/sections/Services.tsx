@@ -12,7 +12,7 @@ const iconMap = {
 
 export function Services() {
   return (
-    <section id="services" className="bg-jamaica-cream py-20 sm:py-28">
+    <section id="services" className="section-py bg-jamaica-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="What We Do"
@@ -20,7 +20,7 @@ export function Services() {
           description="Airport pickups, resort shuttles, and island excursions — priced in USD, built for families and groups."
         />
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {siteConfig.services.map((service, i) => {
             const Icon = iconMap[service.icon];
             const accent =
@@ -32,7 +32,7 @@ export function Services() {
             return (
               <article
                 key={service.title}
-                className="group rounded-2xl border-2 border-jamaica-green/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="group rounded-2xl border-2 border-jamaica-green/10 bg-white p-5 shadow-sm transition-all duration-300 active:scale-[0.99] sm:p-6 sm:hover:-translate-y-1 sm:hover:shadow-xl"
               >
                 <div
                   className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl text-white transition-colors ${accent}`}

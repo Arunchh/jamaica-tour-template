@@ -18,6 +18,10 @@
 
   --jamaica-cream: #fffbf0;
   --jamaica-cream-dark: #f5edd6;
+
+  /* Mobile layout */
+  --header-height: 4.5rem;
+  --mobile-cta-height: 4.25rem;
 }
 
 @theme inline {
@@ -40,17 +44,80 @@
 
 html {
   scroll-behavior: smooth;
+  /* Fixed header offset for anchor links */
+  scroll-padding-top: calc(var(--header-height) + 0.5rem);
 }
 
 body {
   font-family: var(--font-sans);
   color: var(--jamaica-black-soft);
   background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+}
+
+/* Prevent iOS zoom on form focus — inputs must be >= 16px */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+@media (min-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 0.875rem;
+  }
 }
 
 ::selection {
   background: var(--jamaica-gold);
   color: var(--jamaica-black);
+}
+
+/* Section spacing — tighter on mobile */
+.section-py {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  .section-py {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-py {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* Bottom spacer for sticky mobile CTA + safe area (notch phones) */
+.mobile-page-spacer {
+  height: calc(var(--mobile-cta-height) + env(safe-area-inset-bottom, 0px) + 0.5rem);
+}
+
+.mobile-cta-bar {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Horizontal scroll tabs — city picker etc. */
+.scroll-tabs {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.scroll-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 /* Jamaican flag stripe — green / gold / black */
@@ -101,4 +168,18 @@ body {
     rgba(206, 17, 38, 0.06) 0%,
     transparent 50%
   );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

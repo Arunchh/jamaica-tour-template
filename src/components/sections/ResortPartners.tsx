@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 
 export function ResortPartners() {
   return (
-    <section id="resorts" className="bg-white py-20 sm:py-28">
+    <section id="resorts" className="section-py bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow={siteConfig.resorts.eyebrow}
@@ -13,7 +13,7 @@ export function ResortPartners() {
           description={siteConfig.resorts.description}
         />
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2">
+        <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6">
           {siteConfig.resorts.chains.map((chain) => (
             <article
               key={chain.name}
@@ -47,7 +47,7 @@ export function ResortPartners() {
             Tell us where you booked on the form below and we&apos;ll quote you a flat USD rate.
           </p>
           <div className="mt-6">
-            <Button href="#contact" variant="gold">
+            <Button href="#contact" variant="gold" fullWidthMobile>
               Get Resort Transfer Quote
             </Button>
           </div>

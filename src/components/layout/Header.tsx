@@ -18,25 +18,32 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/95 shadow-md backdrop-blur-md" : "bg-transparent"
+      className={`safe-top fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled || open ? "bg-white/95 shadow-md backdrop-blur-md" : "bg-transparent"
       }`}
     >
-      {scrolled && <JamaicaStripe variant="rasta" />}
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="group flex flex-col">
+      {(scrolled || open) && <JamaicaStripe variant="rasta" />}
+      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="group flex min-h-12 flex-col justify-center">
           <span
-            className={`font-display text-xl font-bold tracking-tight transition-colors ${
-              scrolled ? "text-jamaica-black" : "text-white"
+            className={`font-display text-lg font-bold tracking-tight transition-colors sm:text-xl ${
+              scrolled || open ? "text-jamaica-black" : "text-white"
             }`}
           >
             {siteConfig.business.logoText}
           </span>
           <span
-            className={`text-xs font-bold uppercase tracking-[0.25em] ${
-              scrolled ? "text-jamaica-green" : "text-jamaica-gold"
+            className={`text-[10px] font-bold uppercase tracking-[0.2em] sm:text-xs sm:tracking-[0.25em] ${
+              scrolled || open ? "text-jamaica-green" : "text-jamaica-gold"
             }`}
           >
             {siteConfig.business.logoAccent}
@@ -67,31 +74,34 @@ export function Header() {
             <Phone className="h-4 w-4" />
             {siteConfig.business.phoneDisplay}
           </a>
-          <Button href="#contact" variant={scrolled ? "primary" : "gold"}>
+          <Button href="/#contact" variant={scrolled ? "primary" : "gold"}>
             Get a Quote
           </Button>
         </div>
 
         <button
           type="button"
-          className={`rounded-lg p-2 lg:hidden ${
-            scrolled ? "text-jamaica-black" : "text-white"
+          className={`flex h-12 w-12 touch-manipulation items-center justify-center rounded-xl lg:hidden ${
+            scrolled || open
+              ? "text-jamaica-black active:bg-jamaica-cream"
+              : "text-white active:bg-white/10"
           }`}
           onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-jamaica-green/10 bg-white px-4 py-6 shadow-xl lg:hidden">
-          <nav className="flex flex-col gap-4">
+        <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-jamaica-green/10 bg-white px-4 py-4 shadow-xl lg:hidden">
+          <nav className="flex flex-col gap-1">
             {siteConfig.nav.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-base font-semibold text-jamaica-black"
+                className="flex min-h-12 touch-manipulation items-center rounded-lg px-3 text-base font-semibold text-jamaica-black active:bg-jamaica-cream"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
@@ -99,14 +109,22 @@ export function Header() {
             ))}
             <a
               href={formatPhoneLink(siteConfig.business.phone)}
-              className="flex items-center gap-2 font-bold text-jamaica-green"
+              className="flex min-h-12 touch-manipulation items-center gap-3 rounded-lg px-3 font-bold text-jamaica-green active:bg-jamaica-cream"
+              onClick={() => setOpen(false)}
             >
-              <Phone className="h-4 w-4" />
+              <Phone className="h-5 w-5" />
               {siteConfig.business.phoneDisplay}
             </a>
-            <Button href="#contact" variant="primary" className="w-full">
-              Get a Quote
-            </Button>
+            <div className="mt-2 pt-2">
+              <Button
+                href="/#contact"
+                variant="primary"
+                className="w-full"
+                onClick={() => setOpen(false)}
+              >
+                Get a Quote
+              </Button>
+            </div>
           </nav>
         </div>
       )}

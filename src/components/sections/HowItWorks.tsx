@@ -5,7 +5,7 @@ const stepColors = ["bg-jamaica-green", "bg-jamaica-gold text-jamaica-black", "b
 
 export function HowItWorks() {
   return (
-    <section className="bg-jamaica-cream-dark py-20 sm:py-28">
+    <section className="section-py bg-jamaica-cream-dark">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Easy Booking"
@@ -13,7 +13,7 @@ export function HowItWorks() {
           description="No complicated apps. WhatsApp us, get a price in USD, meet your driver at the airport."
         />
 
-        <div className="mt-14 grid gap-8 md:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:mt-14 sm:gap-8 md:grid-cols-3">
           {siteConfig.howItWorks.map((item, i) => (
             <div key={item.step} className="relative text-center">
               <div

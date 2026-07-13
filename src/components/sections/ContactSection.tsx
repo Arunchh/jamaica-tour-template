@@ -62,10 +62,10 @@ export function ContactSection() {
   };
 
   const inputClass =
-    "w-full rounded-lg border-2 border-jamaica-green/15 px-4 py-3 text-sm outline-none transition-colors focus:border-jamaica-green focus:ring-2 focus:ring-jamaica-green/20";
+    "w-full min-h-12 touch-manipulation rounded-lg border-2 border-jamaica-green/15 px-4 py-3 text-base outline-none transition-colors focus:border-jamaica-green focus:ring-2 focus:ring-jamaica-green/20 sm:text-sm";
 
   return (
-    <section id="contact" className="relative bg-jamaica-black py-20 sm:py-28">
+    <section id="contact" className="section-py relative bg-jamaica-black">
       <div className="absolute inset-0 pattern-lion opacity-30" />
       <JamaicaStripe variant="rasta" className="absolute inset-x-0 top-0" />
 
@@ -88,11 +88,11 @@ export function ContactSection() {
           ))}
         </div>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-5">
+        <div className="mt-10 grid gap-8 lg:mt-14 lg:grid-cols-5 lg:gap-10">
           <div className="space-y-6 lg:col-span-2">
             <a
               href={formatPhoneLink(siteConfig.business.phone)}
-              className="flex items-center gap-4 rounded-2xl border-2 border-jamaica-green/20 bg-jamaica-black-soft p-5 text-white transition-colors hover:border-jamaica-green"
+              className="flex min-h-[72px] touch-manipulation items-center gap-4 rounded-2xl border-2 border-jamaica-green/20 bg-jamaica-black-soft p-4 text-white transition-colors active:border-jamaica-green sm:p-5 sm:hover:border-jamaica-green"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rasta-red">
                 <Phone className="h-5 w-5" />
@@ -107,7 +107,7 @@ export function ContactSection() {
               href={formatWhatsAppLink(siteConfig.business.whatsapp, whatsappMessage)}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 rounded-2xl border-2 border-jamaica-green/20 bg-jamaica-black-soft p-5 text-white transition-colors hover:border-jamaica-green"
+              className="flex min-h-[72px] touch-manipulation items-center gap-4 rounded-2xl border-2 border-jamaica-green/20 bg-jamaica-black-soft p-4 text-white transition-colors active:border-jamaica-green sm:p-5 sm:hover:border-jamaica-green"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-jamaica-green">
                 <MessageCircle className="h-5 w-5" />
@@ -120,7 +120,7 @@ export function ContactSection() {
 
             <a
               href={`mailto:${siteConfig.business.email}`}
-              className="flex items-center gap-4 rounded-2xl border-2 border-jamaica-green/20 bg-jamaica-black-soft p-5 text-white transition-colors hover:border-jamaica-green"
+              className="flex min-h-[72px] touch-manipulation items-center gap-4 rounded-2xl border-2 border-jamaica-green/20 bg-jamaica-black-soft p-4 text-white transition-colors active:border-jamaica-green sm:p-5 sm:hover:border-jamaica-green"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-jamaica-gold text-jamaica-black">
                 <Mail className="h-5 w-5" />
@@ -138,7 +138,7 @@ export function ContactSection() {
 
           <form
             onSubmit={handleSubmit}
-            className="rounded-2xl border-2 border-jamaica-green/10 bg-white p-6 shadow-2xl sm:p-8 lg:col-span-3"
+            className="rounded-2xl border-2 border-jamaica-green/10 bg-white p-4 shadow-2xl sm:p-8 lg:col-span-3"
           >
             {status === "success" && (
               <div className="mb-5 flex items-start gap-3 rounded-xl bg-jamaica-green-light p-4 text-jamaica-green-dark">
@@ -168,6 +168,8 @@ export function ContactSection() {
                   id="email"
                   name="email"
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
                   required
                   className={inputClass}
                   placeholder="you@email.com"
@@ -181,6 +183,8 @@ export function ContactSection() {
                   id="phone"
                   name="phone"
                   type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
                   className={inputClass}
                   placeholder="+1 (555) 123-4567"
                 />
@@ -229,6 +233,7 @@ export function ContactSection() {
                   id="guests"
                   name="guests"
                   type="number"
+                  inputMode="numeric"
                   min={1}
                   className={inputClass}
                   placeholder="4"
@@ -250,7 +255,7 @@ export function ContactSection() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-rasta-red px-6 py-4 text-sm font-bold text-white shadow-lg shadow-rasta-red/30 transition-all hover:bg-rasta-red-dark hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
+              className="mt-6 inline-flex w-full min-h-12 touch-manipulation items-center justify-center gap-2 rounded-full bg-rasta-red px-6 py-4 text-base font-bold text-white shadow-lg shadow-rasta-red/30 transition-all active:scale-[0.98] hover:bg-rasta-red-dark disabled:opacity-60 sm:w-auto sm:text-sm"
             >
               {status === "loading" ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

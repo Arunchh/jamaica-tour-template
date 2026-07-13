@@ -13,16 +13,16 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <>
-      <div className="rasta-gradient-bg pt-28 pb-16">
+      <div className="safe-top rasta-gradient-bg pb-12 pt-24 sm:pb-16 sm:pt-28">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <Link
             href="/"
-            className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-jamaica-gold hover:text-white"
+            className="mb-6 inline-flex min-h-12 touch-manipulation items-center gap-2 rounded-lg px-2 text-sm font-semibold text-jamaica-gold active:text-white sm:hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Home
           </Link>
-          <h1 className="font-display text-4xl font-bold text-white sm:text-5xl">
+          <h1 className="font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
             Jamaica Travel Guides
           </h1>
           <p className="mt-4 text-lg text-jamaica-gold-light/90">
@@ -32,7 +32,7 @@ export default function BlogPage() {
         <JamaicaStripe variant="flag" className="mt-12" />
       </div>
 
-      <section className="bg-jamaica-cream py-16 sm:py-20">
+      <section className="section-py bg-jamaica-cream">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <div className="space-y-6">
             {blogPosts.map((post) => (
@@ -41,7 +41,7 @@ export default function BlogPage() {
                 className="overflow-hidden rounded-2xl border-2 border-jamaica-green/10 bg-white transition-shadow hover:shadow-lg"
               >
                 <div className="h-1 rasta-stripe" />
-                <div className="p-6 sm:p-8">
+                <div className="p-5 sm:p-8">
                   <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-jamaica-green">
                     <span className="rounded-full bg-jamaica-green-light px-3 py-1">
                       {post.category}
@@ -59,7 +59,7 @@ export default function BlogPage() {
                       {post.readTime}
                     </span>
                   </div>
-                  <h2 className="mt-4 font-display text-2xl font-bold text-jamaica-black">
+                  <h2 className="mt-4 font-display text-xl font-bold text-jamaica-black sm:text-2xl">
                     <Link
                       href={`/blog/${post.slug}`}
                       className="transition-colors hover:text-jamaica-green"
@@ -72,7 +72,7 @@ export default function BlogPage() {
                   </p>
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="mt-4 inline-block text-sm font-bold text-rasta-red hover:text-rasta-red-dark"
+                    className="mt-4 inline-flex min-h-12 touch-manipulation items-center text-sm font-bold text-rasta-red active:text-rasta-red-dark sm:hover:text-rasta-red-dark"
                   >
                     Read more →
                   </Link>

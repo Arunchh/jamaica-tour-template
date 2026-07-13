@@ -34,7 +34,7 @@ export default function Home() {
       </main>
       <Footer />
       <MobileCTA />
-      <div className="h-20 md:hidden" aria-hidden="true" />
+      <div className="mobile-page-spacer md:hidden" aria-hidden="true" />
     </>
   );
 }

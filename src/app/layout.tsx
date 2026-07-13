@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Outfit } from "next/font/google";
 import { siteConfig } from "@/config/site-config";
 import { TawkWidget } from "@/components/layout/TawkWidget";
@@ -62,6 +62,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteConfig.seo.siteUrl,
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#009b3a",
 };
 
 export default function RootLayout({

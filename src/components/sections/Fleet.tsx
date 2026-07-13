@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Fleet() {
   return (
-    <section id="fleet" className="bg-jamaica-cream py-20 sm:py-28">
+    <section id="fleet" className="section-py bg-jamaica-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Our Fleet"
@@ -13,7 +13,7 @@ export function Fleet() {
           description="From a couple heading to RIU to a 30-person family reunion — we have the right ride."
         />
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:mt-14 sm:gap-8 lg:grid-cols-3">
           {siteConfig.fleet.map((vehicle) => (
             <article
               key={vehicle.name}
@@ -29,7 +29,7 @@ export function Fleet() {
                 />
                 <div className="absolute inset-x-0 bottom-0 jamaica-stripe" />
               </div>
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <h3 className="font-display text-xl font-bold text-jamaica-black">
                   {vehicle.name}
                 </h3>
