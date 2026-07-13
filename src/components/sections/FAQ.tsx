@@ -9,12 +9,12 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-white py-20 sm:py-28">
+    <section id="faq" className="bg-jamaica-cream py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="FAQ"
-          title="Questions US & Canadian Travelers Ask"
-          description="Everything you need to know before booking your Jamaica transport or tour."
+          title="Questions US Travelers Ask Us"
+          description="Resort transfers, pricing, payment, and group travel — answered straight."
         />
 
         <div className="mt-12 space-y-3">
@@ -23,7 +23,7 @@ export function FAQ() {
             return (
               <div
                 key={faq.question}
-                className="overflow-hidden rounded-xl border border-slate-200"
+                className="overflow-hidden rounded-xl border-2 border-jamaica-green/10 bg-white"
               >
                 <button
                   type="button"
@@ -31,16 +31,18 @@ export function FAQ() {
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   aria-expanded={isOpen}
                 >
-                  <span className="font-semibold text-slate-900">{faq.question}</span>
+                  <span className="font-bold text-jamaica-black">{faq.question}</span>
                   <ChevronDown
-                    className={`h-5 w-5 shrink-0 text-ocean-600 transition-transform ${
+                    className={`h-5 w-5 shrink-0 text-jamaica-green transition-transform ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="border-t border-slate-100 px-5 pb-4 pt-2">
-                    <p className="text-sm leading-relaxed text-slate-600">{faq.answer}</p>
+                  <div className="border-t border-jamaica-green/10 px-5 pb-4 pt-2">
+                    <p className="text-sm leading-relaxed text-jamaica-black-soft/80">
+                      {faq.answer}
+                    </p>
                   </div>
                 )}
               </div>

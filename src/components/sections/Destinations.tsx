@@ -5,12 +5,12 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Destinations() {
   return (
-    <section id="destinations" className="bg-sand-50 py-20 sm:py-28">
+    <section id="destinations" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Where We Operate"
-          title="Jamaica's Top Tourist Destinations"
-          description="We run daily transfers and tours across the island's most visited resort areas."
+          eyebrow="Where We Go"
+          title="Jamaica's Resort Destinations"
+          description="Daily transfers and tours across the island's most popular all-inclusive areas."
         />
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -27,19 +27,19 @@ export function Destinations() {
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(max-width: 768px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ocean-950/90 via-ocean-900/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-jamaica-black via-jamaica-green/30 to-transparent" />
               </div>
               <div className="absolute inset-x-0 bottom-0 p-5">
-                <div className="flex items-center gap-2 text-ocean-200">
+                <div className="flex items-center gap-2 text-jamaica-gold">
                   <MapPin className="h-4 w-4" />
-                  <span className="text-xs font-semibold uppercase tracking-wider">
-                    Jamaica
+                  <span className="text-xs font-bold uppercase tracking-wider">
+                    Jamaica 🇯🇲
                   </span>
                 </div>
-                <h3 className="mt-1 font-display text-xl font-semibold text-white">
+                <h3 className="mt-1 font-display text-xl font-bold text-white">
                   {destination.name}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-200">
+                <p className="mt-2 text-sm leading-relaxed text-white/85">
                   {destination.description}
                 </p>
               </div>

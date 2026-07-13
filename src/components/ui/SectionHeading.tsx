@@ -19,16 +19,20 @@ export function SectionHeading({
     >
       {eyebrow && (
         <p
-          className={`mb-3 text-sm font-semibold uppercase tracking-[0.2em] ${
-            light ? "text-ocean-200" : "text-ocean-600"
+          className={`mb-3 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.2em] ${
+            light ? "text-jamaica-gold" : "text-jamaica-green"
           }`}
         >
+          <span
+            className={`inline-block h-2 w-2 rounded-full ${light ? "bg-rasta-red" : "bg-rasta-red"}`}
+            aria-hidden="true"
+          />
           {eyebrow}
         </p>
       )}
       <h2
-        className={`font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl ${
-          light ? "text-white" : "text-slate-900"
+        className={`font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl ${
+          light ? "text-white" : "text-jamaica-black"
         }`}
       >
         {title}
@@ -36,12 +40,17 @@ export function SectionHeading({
       {description && (
         <p
           className={`mt-4 text-lg leading-relaxed ${
-            light ? "text-slate-200" : "text-slate-600"
+            light ? "text-jamaica-gold-light/90" : "text-jamaica-black-soft/80"
           }`}
         >
           {description}
         </p>
       )}
+      <div className={`mt-5 flex gap-1 ${align === "center" ? "justify-center" : ""}`}>
+        <span className="h-1 w-8 rounded-full bg-jamaica-green" />
+        <span className="h-1 w-8 rounded-full bg-jamaica-gold" />
+        <span className="h-1 w-8 rounded-full bg-rasta-red" />
+      </div>
     </div>
   );
 }

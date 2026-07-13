@@ -3,16 +3,18 @@ import { Clock } from "lucide-react";
 import { siteConfig } from "@/config/site-config";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { JamaicaStripe } from "@/components/ui/JamaicaStripe";
 import { formatPrice } from "@/lib/utils";
 
 export function Excursions() {
   return (
-    <section id="tours" className="bg-ocean-900 py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="tours" className="relative bg-jamaica-black py-20 sm:py-28">
+      <div className="absolute inset-0 pattern-lion opacity-50" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Popular Excursions"
-          title="Must-Do Jamaica Experiences"
-          description="Hand-picked tours that US and Canadian guests book most. Private transport included."
+          eyebrow="Island Excursions"
+          title="Day Trips From Your Resort"
+          description="The experiences US travelers book most — private driver included, go at your own pace."
           light
         />
 
@@ -20,7 +22,7 @@ export function Excursions() {
           {siteConfig.excursions.map((tour) => (
             <article
               key={tour.name}
-              className="group overflow-hidden rounded-2xl bg-white shadow-xl transition-transform duration-300 hover:-translate-y-1"
+              className="group overflow-hidden rounded-2xl border-2 border-jamaica-green/20 bg-white shadow-xl transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="relative aspect-[16/10]">
                 <Image
@@ -31,29 +33,29 @@ export function Excursions() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 {tour.popular && (
-                  <span className="absolute left-4 top-4 rounded-full bg-coral-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
-                    Most Popular
+                  <span className="absolute left-4 top-4 rounded-full bg-rasta-red px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                    Fan Favorite
                   </span>
                 )}
               </div>
               <div className="p-6">
-                <h3 className="font-display text-2xl font-semibold text-slate-900">
+                <h3 className="font-display text-2xl font-bold text-jamaica-black">
                   {tour.name}
                 </h3>
-                <div className="mt-3 flex flex-wrap gap-4 text-sm text-slate-600">
+                <div className="mt-3 flex flex-wrap gap-4 text-sm text-jamaica-black-soft/80">
                   <span className="flex items-center gap-1.5">
-                    <Clock className="h-4 w-4 text-ocean-600" />
+                    <Clock className="h-4 w-4 text-jamaica-green" />
                     {tour.duration}
                   </span>
-                  <span className="font-semibold text-coral-600">
-                    From {formatPrice(tour.priceFrom)} / person
+                  <span className="font-bold text-jamaica-green">
+                    From {formatPrice(tour.priceFrom)} USD / person
                   </span>
                 </div>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {tour.highlights.map((highlight) => (
                     <li
                       key={highlight}
-                      className="rounded-full bg-sand-100 px-3 py-1 text-xs font-medium text-slate-700"
+                      className="rounded-full bg-jamaica-gold-light px-3 py-1 text-xs font-semibold text-jamaica-black"
                     >
                       {highlight}
                     </li>
@@ -69,6 +71,7 @@ export function Excursions() {
           ))}
         </div>
       </div>
+      <JamaicaStripe variant="rasta" className="relative mt-0" />
     </section>
   );
 }

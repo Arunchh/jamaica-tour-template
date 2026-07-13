@@ -3,10 +3,12 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileCTA } from "@/components/layout/MobileCTA";
 import { Hero } from "@/components/sections/Hero";
 import { TrustBar } from "@/components/sections/TrustBar";
+import { ValueProps } from "@/components/sections/ValueProps";
 import { Services } from "@/components/sections/Services";
+import { ResortPartners } from "@/components/sections/ResortPartners";
 import { Excursions } from "@/components/sections/Excursions";
+import { CityTours } from "@/components/sections/CityTours";
 import { Fleet } from "@/components/sections/Fleet";
-import { Destinations } from "@/components/sections/Destinations";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQ } from "@/components/sections/FAQ";
@@ -19,10 +21,12 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
+        <ValueProps />
         <Services />
+        <ResortPartners />
         <Excursions />
+        <CityTours />
         <Fleet />
-        <Destinations />
         <HowItWorks />
         <Testimonials />
         <FAQ />

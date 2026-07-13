@@ -1,37 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --ocean-50: #f0f9fa;
-  --ocean-100: #d9f0f2;
-  --ocean-200: #b7e2e7;
-  --ocean-600: #1a7a8a;
-  --ocean-700: #155f6d;
-  --ocean-800: #134e59;
-  --ocean-900: #13404a;
-  --ocean-950: #0a2830;
-  --coral-400: #f97316;
-  --coral-500: #ea580c;
-  --coral-600: #c2410c;
-  --sand-50: #faf8f5;
-  --sand-100: #f5f0e8;
+  /* Jamaican flag */
+  --jamaica-green: #009b3a;
+  --jamaica-green-dark: #007a2e;
+  --jamaica-green-light: #e8f8ee;
+  --jamaica-gold: #fcd116;
+  --jamaica-gold-dark: #d4a800;
+  --jamaica-gold-light: #fff9e0;
+  --jamaica-black: #0a0a0a;
+  --jamaica-black-soft: #1a1a1a;
+
+  /* Rastafari accent */
+  --rasta-red: #ce1126;
+  --rasta-red-dark: #a50e1e;
+  --rasta-red-light: #fde8eb;
+
+  --jamaica-cream: #fffbf0;
+  --jamaica-cream-dark: #f5edd6;
 }
 
 @theme inline {
-  --color-ocean-50: var(--ocean-50);
-  --color-ocean-100: var(--ocean-100);
-  --color-ocean-200: var(--ocean-200);
-  --color-ocean-600: var(--ocean-600);
-  --color-ocean-700: var(--ocean-700);
-  --color-ocean-800: var(--ocean-800);
-  --color-ocean-900: var(--ocean-900);
-  --color-ocean-950: var(--ocean-950);
-  --color-coral-400: var(--coral-400);
-  --color-coral-500: var(--coral-500);
-  --color-coral-600: var(--coral-600);
-  --color-sand-50: var(--sand-50);
-  --color-sand-100: var(--sand-100);
-  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
-  --font-display: var(--font-playfair), Georgia, serif;
+  --color-jamaica-green: var(--jamaica-green);
+  --color-jamaica-green-dark: var(--jamaica-green-dark);
+  --color-jamaica-green-light: var(--jamaica-green-light);
+  --color-jamaica-gold: var(--jamaica-gold);
+  --color-jamaica-gold-dark: var(--jamaica-gold-dark);
+  --color-jamaica-gold-light: var(--jamaica-gold-light);
+  --color-jamaica-black: var(--jamaica-black);
+  --color-jamaica-black-soft: var(--jamaica-black-soft);
+  --color-rasta-red: var(--rasta-red);
+  --color-rasta-red-dark: var(--rasta-red-dark);
+  --color-rasta-red-light: var(--rasta-red-light);
+  --color-jamaica-cream: var(--jamaica-cream);
+  --color-jamaica-cream-dark: var(--jamaica-cream-dark);
+  --font-sans: var(--font-outfit), system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
 }
 
 html {
@@ -40,11 +44,61 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: #0f172a;
+  color: var(--jamaica-black-soft);
   background: #ffffff;
 }
 
 ::selection {
-  background: var(--ocean-200);
-  color: var(--ocean-950);
+  background: var(--jamaica-gold);
+  color: var(--jamaica-black);
+}
+
+/* Jamaican flag stripe — green / gold / black */
+.jamaica-stripe {
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--jamaica-green) 0%,
+    var(--jamaica-green) 33%,
+    var(--jamaica-gold) 33%,
+    var(--jamaica-gold) 66%,
+    var(--jamaica-black) 66%,
+    var(--jamaica-black) 100%
+  );
+}
+
+/* Rastafari tri-color accent */
+.rasta-stripe {
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--rasta-red) 0%,
+    var(--rasta-red) 33%,
+    var(--jamaica-gold) 33%,
+    var(--jamaica-gold) 66%,
+    var(--jamaica-green) 66%,
+    var(--jamaica-green) 100%
+  );
+}
+
+.rasta-gradient-bg {
+  background: linear-gradient(
+    135deg,
+    var(--jamaica-black) 0%,
+    #1a3d1a 40%,
+    var(--jamaica-green-dark) 100%
+  );
+}
+
+.pattern-lion {
+  background-image: radial-gradient(
+    circle at 20% 50%,
+    rgba(252, 209, 22, 0.08) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 80% 50%,
+    rgba(206, 17, 38, 0.06) 0%,
+    transparent 50%
+  );
 }

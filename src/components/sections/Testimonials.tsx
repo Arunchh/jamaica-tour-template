@@ -4,35 +4,35 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Testimonials() {
   return (
-    <section id="reviews" className="bg-sand-50 py-20 sm:py-28">
+    <section id="reviews" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Guest Reviews"
-          title="Trusted by Travelers from the US & Canada"
-          description="Real feedback from guests who booked airport transfers and island tours with us."
+          eyebrow="Real Reviews"
+          title="What US Travelers Say"
+          description="Families, couples, and groups who booked airport transfers and island tours with us."
         />
 
         <div className="mt-14 grid gap-8 md:grid-cols-3">
           {siteConfig.testimonials.map((review) => (
             <article
               key={review.name}
-              className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              className="relative rounded-2xl border-2 border-jamaica-green/10 bg-jamaica-cream p-6"
             >
-              <Quote className="absolute right-6 top-6 h-8 w-8 text-ocean-100" />
+              <Quote className="absolute right-6 top-6 h-8 w-8 text-jamaica-gold/40" />
               <div className="flex gap-1">
                 {Array.from({ length: review.rating }).map((_, i) => (
                   <Star
                     key={i}
-                    className="h-4 w-4 fill-amber-400 text-amber-400"
+                    className="h-4 w-4 fill-jamaica-gold text-jamaica-gold"
                   />
                 ))}
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-slate-700">
+              <p className="mt-4 text-sm leading-relaxed text-jamaica-black-soft">
                 &ldquo;{review.text}&rdquo;
               </p>
-              <div className="mt-6 border-t border-slate-100 pt-4">
-                <p className="font-semibold text-slate-900">{review.name}</p>
-                <p className="text-sm text-slate-500">{review.location}</p>
+              <div className="mt-6 border-t border-jamaica-green/10 pt-4">
+                <p className="font-bold text-jamaica-black">{review.name}</p>
+                <p className="text-sm text-jamaica-green">{review.location}</p>
               </div>
             </article>
           ))}

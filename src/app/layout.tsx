@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Fraunces, Outfit } from "next/font/google";
 import { siteConfig } from "@/config/site-config";
+import { TawkWidget } from "@/components/layout/TawkWidget";
 import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
   display: "swap",
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
 });
@@ -19,7 +20,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.seo.siteUrl),
   title: {
-    default: `${siteConfig.business.name} | Jamaica Tours & Airport Transfers`,
+    default: `${siteConfig.business.name} | Jamaica Resort Transfers & Tours`,
     template: `%s | ${siteConfig.business.name}`,
   },
   description: siteConfig.business.description,
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteConfig.seo.siteUrl,
     siteName: siteConfig.business.name,
-    title: `${siteConfig.business.name} | Jamaica Tours & Airport Transfers`,
+    title: `${siteConfig.business.name} | Jamaica Resort Transfers & Tours`,
     description: siteConfig.business.description,
     images: [
       {
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.business.name} | Jamaica Tours & Airport Transfers`,
+    title: `${siteConfig.business.name} | Jamaica Resort Transfers & Tours`,
     description: siteConfig.business.description,
     images: [siteConfig.hero.image],
   },
@@ -69,11 +70,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${dmSans.variable} scroll-smooth`}>
+    <html lang="en" className={`${fraunces.variable} ${outfit.variable} scroll-smooth`}>
       <head>
         <JsonLd />
       </head>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        {children}
+        <TawkWidget />
+      </body>
     </html>
   );
 }
