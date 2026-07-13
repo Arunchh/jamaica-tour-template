@@ -24,10 +24,17 @@ type CommunicationsConfig = {
   tawkWidgetId: string;
 };
 
+export type FormMessages = {
+  success: string;
+  error: string;
+  mailtoSuccess: string;
+};
+
 export async function submitLeadForm(
   config: CommunicationsConfig,
   businessName: string,
-  data: FormFieldData
+  data: FormFieldData,
+  messages: FormMessages
 ): Promise<SubmitResult> {
   const summary = [
     `New lead for ${businessName}`,
@@ -63,9 +70,9 @@ export async function submitLeadForm(
     });
     const json = await res.json();
     if (json.success) {
-      return { ok: true, message: "Thanks! We'll reply on WhatsApp or email within 2 hours." };
+      return { ok: true, message: messages.success };
     }
-    return { ok: false, message: "Something went wrong. Please WhatsApp or call us directly." };
+    return { ok: false, message: messages.error };
   }
 
   if (config.formProvider === "formspree" && config.formspreeFormId) {
@@ -85,14 +92,14 @@ export async function submitLeadForm(
       }),
     });
     if (res.ok) {
-      return { ok: true, message: "Thanks! We'll reply on WhatsApp or email within 2 hours." };
+      return { ok: true, message: messages.success };
     }
-    return { ok: false, message: "Something went wrong. Please WhatsApp or call us directly." };
+    return { ok: false, message: messages.error };
   }
 
   const mailto = `mailto:${config.leadNotificationEmail}?subject=${encodeURIComponent(
     `Website Lead — ${data.service} — ${data.resort}`
   )}&body=${encodeURIComponent(summary)}`;
   window.location.href = mailto;
-  return { ok: true, message: "Your email app should open — send the message to complete your request." };
+  return { ok: true, message: messages.mailtoSuccess };
 }

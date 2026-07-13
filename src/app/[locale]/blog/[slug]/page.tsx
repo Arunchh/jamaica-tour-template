@@ -1,22 +1,34 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
-import { blogPosts, getBlogPost } from "@/content/tours-and-blog";
-import { siteConfig } from "@/config/site-config";
+import { getBlogPost, getContent, getUi, formatUi } from "@/i18n/index";
+import { localizeHref, localizedPath } from "@/i18n/paths";
+import { dateLocale, isLocale, locales, type Locale } from "@/i18n/config";
 import { JamaicaStripe } from "@/components/ui/JamaicaStripe";
 import { Button } from "@/components/ui/Button";
 import type { Metadata } from "next";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+  return locales.flatMap((locale) =>
+    getContent(locale).blogPosts.map((post) => ({
+      locale,
+      slug: post.slug,
+    }))
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const post = getBlogPost(slug);
+  const { locale: localeParam, slug } = await params;
+  if (!isLocale(localeParam)) return {};
+
+  const post = getBlogPost(localeParam, slug);
   if (!post) return {};
+
+  const { siteConfig } = getContent(localeParam);
+  const base = siteConfig.seo.siteUrl;
+  const path = localizedPath(`/blog/${slug}`, localeParam);
 
   return {
     title: post.title,
@@ -29,15 +41,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
     },
     alternates: {
-      canonical: `${siteConfig.seo.siteUrl}/blog/${post.slug}`,
+      canonical: `${base}${path}`,
     },
   };
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
-  const post = getBlogPost(slug);
+  const { locale: localeParam, slug } = await params;
+  if (!isLocale(localeParam)) notFound();
+
+  const locale = localeParam as Locale;
+  const post = getBlogPost(locale, slug);
   if (!post) notFound();
+
+  const { siteConfig } = getContent(locale);
+  const ui = getUi(locale);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -45,6 +63,7 @@ export default async function BlogPostPage({ params }: Props) {
     headline: post.title,
     description: post.excerpt,
     datePublished: post.date,
+    inLanguage: locale,
     author: { "@type": "Organization", name: siteConfig.business.name },
     publisher: { "@type": "Organization", name: siteConfig.business.name },
     keywords: post.keywords.join(", "),
@@ -60,11 +79,11 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="safe-top rasta-gradient-bg pb-10 pt-24 sm:pb-12 sm:pt-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <Link
-            href="/blog"
+            href={localizeHref("/blog", locale)}
             className="mb-6 inline-flex min-h-12 touch-manipulation items-center gap-2 rounded-lg px-2 text-sm font-semibold text-jamaica-gold active:text-white sm:hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
-            All Guides
+            {ui.common.allGuides}
           </Link>
           <span className="rounded-full bg-jamaica-gold/20 px-3 py-1 text-xs font-bold text-jamaica-gold">
             {post.category}
@@ -75,7 +94,7 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="mt-4 flex flex-wrap gap-4 text-sm text-jamaica-gold-light/80">
             <span className="flex items-center gap-1.5">
               <Calendar className="h-4 w-4" />
-              {new Date(post.date).toLocaleDateString("en-US", {
+              {new Date(post.date).toLocaleDateString(dateLocale[locale], {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
@@ -118,14 +137,16 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="mt-10 rounded-2xl bg-jamaica-cream p-5 text-center sm:mt-14 sm:p-8">
             <h3 className="font-display text-xl font-bold text-jamaica-black">
-              Need a transfer or tour?
+              {ui.common.needTransferCtaTitle}
             </h3>
             <p className="mt-2 text-sm text-jamaica-black-soft/80">
-              Get a free USD quote from {siteConfig.business.name} — WhatsApp reply within 2 hours.
+              {formatUi(ui.common.needTransferCtaDescription, {
+                business: siteConfig.business.name,
+              })}
             </p>
             <div className="mt-6">
-              <Button href="/#contact" variant="primary" fullWidthMobile>
-                Get a Free Quote
+              <Button href={localizeHref("/#contact", locale)} variant="primary" fullWidthMobile>
+                {ui.common.needTransferCtaButton}
               </Button>
             </div>
           </div>

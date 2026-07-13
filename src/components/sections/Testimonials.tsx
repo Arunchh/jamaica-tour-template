@@ -1,15 +1,19 @@
+"use client";
+
 import { Quote, Star } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 export function Testimonials() {
+  const { siteConfig, ui } = useI18n();
+
   return (
     <section id="reviews" className="section-py bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Real Reviews"
-          title="What US Travelers Say"
-          description="Families, couples, and groups who booked airport transfers and island tours with us."
+          eyebrow={ui.sections.testimonials.eyebrow}
+          title={ui.sections.testimonials.title}
+          description={ui.sections.testimonials.description}
         />
 
         <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 md:gap-8">

@@ -2,19 +2,20 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 export function FAQ() {
+  const { siteConfig, ui } = useI18n();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section id="faq" className="section-py bg-jamaica-cream">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="FAQ"
-          title="Questions US Travelers Ask Us"
-          description="Resort transfers, pricing, payment, and group travel — answered straight."
+          eyebrow={ui.sections.faq.eyebrow}
+          title={ui.sections.faq.title}
+          description={ui.sections.faq.description}
         />
 
         <div className="mt-8 space-y-2 sm:mt-12 sm:space-y-3">

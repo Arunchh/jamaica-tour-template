@@ -1,9 +1,13 @@
+"use client";
+
 import { MapPin } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 export function ResortPartners() {
+  const { siteConfig, ui } = useI18n();
+
   return (
     <section id="resorts" className="section-py bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -40,15 +44,11 @@ export function ResortPartners() {
         </div>
 
         <div className="mt-10 rounded-2xl bg-jamaica-black-soft p-6 text-center sm:p-8">
-          <p className="text-lg font-bold text-jamaica-gold">
-            Your resort not listed? No problem — we go everywhere on the island.
-          </p>
-          <p className="mt-2 text-sm text-white/80">
-            Tell us where you booked on the form below and we&apos;ll quote you a flat USD rate.
-          </p>
+          <p className="text-lg font-bold text-jamaica-gold">{ui.sections.resortsCta.title}</p>
+          <p className="mt-2 text-sm text-white/80">{ui.sections.resortsCta.description}</p>
           <div className="mt-6">
             <Button href="#contact" variant="gold" fullWidthMobile>
-              Get Resort Transfer Quote
+              {ui.sections.resortsCta.button}
             </Button>
           </div>
         </div>

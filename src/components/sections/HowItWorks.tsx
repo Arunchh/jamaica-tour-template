@@ -1,16 +1,20 @@
-import { siteConfig } from "@/config/site-config";
+"use client";
+
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 const stepColors = ["bg-jamaica-green", "bg-jamaica-gold text-jamaica-black", "bg-rasta-red"];
 
 export function HowItWorks() {
+  const { siteConfig, ui } = useI18n();
+
   return (
     <section className="section-py bg-jamaica-cream-dark">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Easy Booking"
-          title="3 Steps — You're Set"
-          description="No complicated apps. WhatsApp us, get a price in USD, meet your driver at the airport."
+          eyebrow={ui.sections.howItWorks.eyebrow}
+          title={ui.sections.howItWorks.title}
+          description={ui.sections.howItWorks.description}
         />
 
         <div className="mt-10 grid gap-6 sm:mt-14 sm:gap-8 md:grid-cols-3">

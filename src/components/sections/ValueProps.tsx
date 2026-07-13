@@ -1,7 +1,11 @@
-import { siteConfig } from "@/config/site-config";
+"use client";
+
 import { JamaicaStripe } from "@/components/ui/JamaicaStripe";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 export function ValueProps() {
+  const { siteConfig } = useI18n();
+
   return (
     <section className="section-py bg-jamaica-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

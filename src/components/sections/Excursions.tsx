@@ -1,20 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import { Clock } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { JamaicaStripe } from "@/components/ui/JamaicaStripe";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { formatUi } from "@/i18n/index";
 import { formatPrice } from "@/lib/utils";
 
 export function Excursions() {
+  const { siteConfig, ui } = useI18n();
+
   return (
     <section id="tours" className="section-py relative bg-jamaica-black">
       <div className="absolute inset-0 pattern-lion opacity-50" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Island Excursions"
-          title="Day Trips From Your Resort"
-          description="The experiences US travelers book most — private driver included, go at your own pace."
+          eyebrow={ui.sections.excursions.eyebrow}
+          title={ui.sections.excursions.title}
+          description={ui.sections.excursions.description}
           light
         />
 
@@ -34,7 +39,7 @@ export function Excursions() {
                 />
                 {tour.popular && (
                   <span className="absolute left-4 top-4 rounded-full bg-rasta-red px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
-                    Fan Favorite
+                    {ui.common.fanFavorite}
                   </span>
                 )}
               </div>
@@ -48,7 +53,9 @@ export function Excursions() {
                     {tour.duration}
                   </span>
                   <span className="font-bold text-jamaica-green">
-                    From {formatPrice(tour.priceFrom)} USD / person
+                    {formatUi(ui.common.fromPriceUsdPerPerson, {
+                      price: formatPrice(tour.priceFrom),
+                    })}
                   </span>
                 </div>
                 <ul className="mt-4 flex flex-wrap gap-2">
@@ -63,7 +70,7 @@ export function Excursions() {
                 </ul>
                 <div className="mt-6">
                   <Button href="#contact" variant="secondary" fullWidthMobile>
-                    Book This Tour
+                    {ui.common.bookThisTour}
                   </Button>
                 </div>
               </div>

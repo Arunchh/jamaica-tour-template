@@ -1,16 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import { Users } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 export function Fleet() {
+  const { siteConfig, ui } = useI18n();
+
   return (
     <section id="fleet" className="section-py bg-jamaica-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Our Fleet"
-          title="Vans & Buses for Every Group Size"
-          description="From a couple heading to RIU to a 30-person family reunion — we have the right ride."
+          eyebrow={ui.sections.fleet.eyebrow}
+          title={ui.sections.fleet.title}
+          description={ui.sections.fleet.description}
         />
 
         <div className="mt-10 grid gap-6 sm:mt-14 sm:gap-8 lg:grid-cols-3">

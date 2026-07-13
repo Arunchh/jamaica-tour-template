@@ -1,12 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import { ArrowRight, MessageCircle, Phone, Star } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { Button } from "@/components/ui/Button";
 import { JamaicaStripe } from "@/components/ui/JamaicaStripe";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { formatUi } from "@/i18n/index";
 import { formatPhoneLink, formatWhatsAppLink } from "@/lib/utils";
 
 export function Hero() {
-  const whatsappMessage = `Hi ${siteConfig.business.name}, I need a quote for airport transfer to my resort.`;
+  const { siteConfig, ui } = useI18n();
+  const whatsappMessage = formatUi(ui.contact.whatsappResort, {
+    business: siteConfig.business.name,
+  });
 
   return (
     <section className="relative min-h-[100dvh] overflow-hidden sm:min-h-screen">
@@ -37,7 +43,8 @@ export function Hero() {
           <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm text-white backdrop-blur-sm">
             <Star className="h-4 w-4 shrink-0 fill-jamaica-gold text-jamaica-gold" />
             <span className="leading-snug">
-              {siteConfig.business.googleRating}★ · {siteConfig.business.reviewCount}+ US travelers
+              {siteConfig.business.googleRating}★ · {siteConfig.business.reviewCount}+{" "}
+              {ui.common.usTravelers}
             </span>
           </div>
 
@@ -74,7 +81,7 @@ export function Hero() {
               className="flex min-h-12 touch-manipulation items-center justify-center gap-2 rounded-xl border border-jamaica-green/40 bg-jamaica-green/30 px-4 py-3 text-base font-semibold text-white active:bg-jamaica-green/50 sm:justify-start sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:text-sm"
             >
               <MessageCircle className="h-5 w-5 shrink-0" />
-              WhatsApp Us
+              {ui.common.whatsappUs}
             </a>
           </div>
         </div>

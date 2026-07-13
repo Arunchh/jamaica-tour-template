@@ -1,6 +1,8 @@
+"use client";
+
 import { Award, Clock, DollarSign, Shield, Star } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { JamaicaStripe } from "@/components/ui/JamaicaStripe";
+import { useI18n } from "@/i18n/LocaleProvider";
 
 const iconMap = {
   shield: Shield,
@@ -11,6 +13,7 @@ const iconMap = {
 };
 
 export function TrustBar() {
+  const { siteConfig } = useI18n();
   return (
     <section className="relative bg-jamaica-black">
       <JamaicaStripe variant="rasta" />

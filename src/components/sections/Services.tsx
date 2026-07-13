@@ -1,6 +1,9 @@
+"use client";
+
 import { Hotel, Map, Plane, Users } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { formatUi } from "@/i18n/index";
 import { formatPrice } from "@/lib/utils";
 
 const iconMap = {
@@ -11,13 +14,15 @@ const iconMap = {
 };
 
 export function Services() {
+  const { siteConfig, ui } = useI18n();
+
   return (
     <section id="services" className="section-py bg-jamaica-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="What We Do"
-          title="Transport & Tours for US Travelers"
-          description="Airport pickups, resort shuttles, and island excursions — priced in USD, built for families and groups."
+          eyebrow={ui.sections.services.eyebrow}
+          title={ui.sections.services.title}
+          description={ui.sections.services.description}
         />
 
         <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
@@ -46,7 +51,7 @@ export function Services() {
                   {service.description}
                 </p>
                 <p className="mt-5 text-sm font-bold text-jamaica-green">
-                  From {formatPrice(service.priceFrom)} USD
+                  {formatUi(ui.common.fromPriceUsd, { price: formatPrice(service.priceFrom) })}
                 </p>
               </article>
             );

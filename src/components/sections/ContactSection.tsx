@@ -2,30 +2,19 @@
 
 import { useState } from "react";
 import { Mail, MessageCircle, Phone, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
-import { siteConfig } from "@/config/site-config";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { JamaicaStripe } from "@/components/ui/JamaicaStripe";
 import { submitLeadForm } from "@/lib/submit-form";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { formatUi } from "@/i18n/index";
 import { formatPhoneLink, formatWhatsAppLink } from "@/lib/utils";
 
-const resortOptions = [
-  "RIU Montego Bay",
-  "RIU Negril",
-  "RIU Ocho Rios",
-  "Royalton Blue Waters",
-  "Royalton White Sands",
-  "Royalton Negril",
-  "Sandals Montego Bay",
-  "Sandals Negril",
-  "Sandals Ochi",
-  "Secrets St. James",
-  "Excellence Oyster Bay",
-  "Grand Palladium",
-  "Other Resort / Villa",
-];
-
 export function ContactSection() {
-  const whatsappMessage = `Hi ${siteConfig.business.name}, I need a quote for airport transfer to my resort.`;
+  const { siteConfig, ui } = useI18n();
+  const form = ui.contact.form;
+  const whatsappMessage = formatUi(ui.contact.whatsappResort, {
+    business: siteConfig.business.name,
+  });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
 
@@ -33,8 +22,8 @@ export function ContactSection() {
     e.preventDefault();
     setStatus("loading");
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+    const formEl = e.currentTarget;
+    const formData = new FormData(formEl);
 
     const result = await submitLeadForm(
       siteConfig.communications,
@@ -48,13 +37,14 @@ export function ContactSection() {
         date: String(formData.get("date") ?? ""),
         guests: String(formData.get("guests") ?? ""),
         message: String(formData.get("message") ?? ""),
-      }
+      },
+      ui.form
     );
 
     if (result.ok) {
       setStatus("success");
       setStatusMessage(result.message);
-      form.reset();
+      formEl.reset();
     } else {
       setStatus("error");
       setStatusMessage(result.message);
@@ -71,9 +61,9 @@ export function ContactSection() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Book Your Ride"
-          title="Get a Free USD Quote"
-          description="Tell us your resort and flight details. We reply on WhatsApp within 2 hours — no obligation."
+          eyebrow={ui.sections.contact.eyebrow}
+          title={ui.sections.contact.title}
+          description={ui.sections.contact.description}
           light
         />
 
@@ -98,7 +88,7 @@ export function ContactSection() {
                 <Phone className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm text-jamaica-gold-light/70">Call Direct</p>
+                <p className="text-sm text-jamaica-gold-light/70">{ui.contact.callDirect}</p>
                 <p className="font-bold">{siteConfig.business.phoneDisplay}</p>
               </div>
             </a>
@@ -113,8 +103,8 @@ export function ContactSection() {
                 <MessageCircle className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm text-jamaica-gold-light/70">WhatsApp (Fastest)</p>
-                <p className="font-bold">Message us now</p>
+                <p className="text-sm text-jamaica-gold-light/70">{ui.contact.whatsappFastest}</p>
+                <p className="font-bold">{ui.contact.messageUsNow}</p>
               </div>
             </a>
 
@@ -126,13 +116,13 @@ export function ContactSection() {
                 <Mail className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm text-jamaica-gold-light/70">Email</p>
+                <p className="text-sm text-jamaica-gold-light/70">{ui.contact.emailLabel}</p>
                 <p className="font-bold">{siteConfig.business.email}</p>
               </div>
             </a>
 
             <p className="text-sm text-white/50">
-              JTB License #{siteConfig.business.licenseNumber} · {siteConfig.business.address}
+              {ui.common.jtbLicense} {siteConfig.business.licenseNumber} · {siteConfig.business.address}
             </p>
           </div>
 
@@ -156,13 +146,19 @@ export function ContactSection() {
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="name" className="mb-1.5 block text-sm font-bold text-jamaica-black">
-                  Full Name *
+                  {form.fullName}
                 </label>
-                <input id="name" name="name" required className={inputClass} placeholder="Your name" />
+                <input
+                  id="name"
+                  name="name"
+                  required
+                  className={inputClass}
+                  placeholder={form.placeholders.name}
+                />
               </div>
               <div>
                 <label htmlFor="email" className="mb-1.5 block text-sm font-bold text-jamaica-black">
-                  Email *
+                  {form.email}
                 </label>
                 <input
                   id="email"
@@ -172,12 +168,12 @@ export function ContactSection() {
                   autoComplete="email"
                   required
                   className={inputClass}
-                  placeholder="you@email.com"
+                  placeholder={form.placeholders.email}
                 />
               </div>
               <div>
                 <label htmlFor="phone" className="mb-1.5 block text-sm font-bold text-jamaica-black">
-                  Phone / WhatsApp
+                  {form.phone}
                 </label>
                 <input
                   id="phone"
@@ -186,16 +182,16 @@ export function ContactSection() {
                   inputMode="tel"
                   autoComplete="tel"
                   className={inputClass}
-                  placeholder="+1 (555) 123-4567"
+                  placeholder={form.placeholders.phone}
                 />
               </div>
               <div>
                 <label htmlFor="resort" className="mb-1.5 block text-sm font-bold text-jamaica-black">
-                  Your Resort *
+                  {form.resort}
                 </label>
                 <select id="resort" name="resort" required className={inputClass}>
-                  <option value="">Select your resort</option>
-                  {resortOptions.map((resort) => (
+                  <option value="">{form.placeholders.selectResort}</option>
+                  {form.resortOptions.map((resort) => (
                     <option key={resort} value={resort}>
                       {resort}
                     </option>
@@ -204,30 +200,26 @@ export function ContactSection() {
               </div>
               <div>
                 <label htmlFor="service" className="mb-1.5 block text-sm font-bold text-jamaica-black">
-                  Service Needed *
+                  {form.service}
                 </label>
                 <select id="service" name="service" required className={inputClass}>
-                  <option value="">Select a service</option>
-                  <option value="MBJ Airport to Resort">MBJ Airport → Resort Transfer</option>
-                  <option value="Resort to MBJ Airport">Resort → MBJ Airport</option>
-                  <option value="Round Trip Airport">Round Trip Airport Transfer</option>
-                  <option value="Dunn's River Falls">Dunn&apos;s River Falls Tour</option>
-                  <option value="Blue Hole">Blue Hole & Secret Falls</option>
-                  <option value="Rick's Cafe">Rick&apos;s Café Sunset</option>
-                  <option value="Luminous Lagoon">Luminous Lagoon Night Tour</option>
-                  <option value="Group Transport">Group / Family Transport</option>
-                  <option value="Other">Other</option>
+                  <option value="">{form.placeholders.selectService}</option>
+                  {form.serviceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div>
                 <label htmlFor="date" className="mb-1.5 block text-sm font-bold text-jamaica-black">
-                  Travel Date
+                  {form.travelDate}
                 </label>
                 <input id="date" name="date" type="date" className={inputClass} />
               </div>
               <div>
                 <label htmlFor="guests" className="mb-1.5 block text-sm font-bold text-jamaica-black">
-                  Number of Guests
+                  {form.guests}
                 </label>
                 <input
                   id="guests"
@@ -236,20 +228,20 @@ export function ContactSection() {
                   inputMode="numeric"
                   min={1}
                   className={inputClass}
-                  placeholder="4"
+                  placeholder={form.placeholders.guests}
                 />
               </div>
             </div>
             <div className="mt-5">
               <label htmlFor="message" className="mb-1.5 block text-sm font-bold text-jamaica-black">
-                Flight # & Other Details
+                {form.details}
               </label>
               <textarea
                 id="message"
                 name="message"
                 rows={4}
                 className={inputClass}
-                placeholder="Flight number, arrival time, special requests..."
+                placeholder={form.placeholders.details}
               />
             </div>
             <button
@@ -262,11 +254,9 @@ export function ContactSection() {
               ) : (
                 <Send className="h-4 w-4" />
               )}
-              {status === "loading" ? "Sending..." : "Request Free USD Quote"}
+              {status === "loading" ? form.submitting : form.submit}
             </button>
-            <p className="mt-3 text-xs text-jamaica-black-soft/60">
-              We respond within 2 hours. No spam, no obligation.
-            </p>
+            <p className="mt-3 text-xs text-jamaica-black-soft/60">{form.disclaimer}</p>
           </form>
         </div>
       </div>

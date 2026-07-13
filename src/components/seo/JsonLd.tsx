@@ -1,6 +1,11 @@
-import { siteConfig } from "@/config/site-config";
+import type { Locale } from "@/i18n/config";
+import { getContent } from "@/i18n/index";
+import { getUi } from "@/i18n/index";
 
-export function JsonLd() {
+export function JsonLd({ locale }: { locale: Locale }) {
+  const { siteConfig } = getContent(locale);
+  const ui = getUi(locale);
+
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -12,6 +17,7 @@ export function JsonLd() {
         url: siteConfig.seo.siteUrl,
         telephone: siteConfig.business.phone,
         email: siteConfig.business.email,
+        inLanguage: locale,
         address: {
           "@type": "PostalAddress",
           addressLocality: "Montego Bay",
@@ -23,7 +29,7 @@ export function JsonLd() {
           name: d.name,
           containedInPlace: {
             "@type": "Country",
-            name: "Jamaica",
+            name: ui.common.countryName,
           },
         })),
         aggregateRating: {
@@ -38,10 +44,12 @@ export function JsonLd() {
         "@id": `${siteConfig.seo.siteUrl}/#website`,
         url: siteConfig.seo.siteUrl,
         name: siteConfig.business.name,
+        inLanguage: locale,
         publisher: { "@id": `${siteConfig.seo.siteUrl}/#organization` },
       },
       {
         "@type": "FAQPage",
+        inLanguage: locale,
         mainEntity: siteConfig.faqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,

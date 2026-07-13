@@ -1,53 +1,25 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Fraunces, Outfit } from "next/font/google";
-import { siteConfig } from "@/config/site-config";
 import { TawkWidget } from "@/components/layout/TawkWidget";
-import { JsonLd } from "@/components/seo/JsonLd";
+import { defaultLocale, htmlLang, isLocale } from "@/i18n/config";
+import { getContent } from "@/i18n/index";
 import "./globals.css";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
 const outfit = Outfit({
   variable: "--font-outfit",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.seo.siteUrl),
-  title: {
-    default: `${siteConfig.business.name} | Jamaica Resort Transfers & Tours`,
-    template: `%s | ${siteConfig.business.name}`,
-  },
-  description: siteConfig.business.description,
-  keywords: [...siteConfig.seo.keywords],
-  authors: [{ name: siteConfig.business.name }],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.seo.siteUrl,
-    siteName: siteConfig.business.name,
-    title: `${siteConfig.business.name} | Jamaica Resort Transfers & Tours`,
-    description: siteConfig.business.description,
-    images: [
-      {
-        url: siteConfig.hero.image,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.hero.imageAlt,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteConfig.business.name} | Jamaica Resort Transfers & Tours`,
-    description: siteConfig.business.description,
-    images: [siteConfig.hero.image],
-  },
+  metadataBase: new URL(getContent("en").siteConfig.seo.siteUrl),
   robots: {
     index: true,
     follow: true,
@@ -59,9 +31,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: siteConfig.seo.siteUrl,
-  },
 };
 
 export const viewport: Viewport = {
@@ -71,16 +40,20 @@ export const viewport: Viewport = {
   themeColor: "#009b3a",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const localeHeader = headersList.get("x-locale") ?? defaultLocale;
+  const locale = isLocale(localeHeader) ? localeHeader : defaultLocale;
+
   return (
-    <html lang="en" className={`${fraunces.variable} ${outfit.variable} scroll-smooth`}>
-      <head>
-        <JsonLd />
-      </head>
+    <html
+      lang={htmlLang[locale]}
+      className={`${fraunces.variable} ${outfit.variable} scroll-smooth`}
+    >
       <body className="font-sans antialiased">
         {children}
         <TawkWidget />

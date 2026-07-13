@@ -3,17 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Clock, MapPin, ChevronDown } from "lucide-react";
-import { cityTourGuides } from "@/content/tours-and-blog";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { formatUi } from "@/i18n/index";
 import { formatPrice } from "@/lib/utils";
-
-const typeLabels = {
-  transfer: "Transfer",
-  excursion: "Excursion",
-  activity: "Activity",
-  combo: "Combo Tour",
-};
 
 const typeColors = {
   transfer: "bg-jamaica-green text-white",
@@ -23,6 +17,7 @@ const typeColors = {
 };
 
 export function CityTours() {
+  const { cityTourGuides, ui } = useI18n();
   const [activeCity, setActiveCity] = useState(cityTourGuides[0].slug);
 
   const city = cityTourGuides.find((c) => c.slug === activeCity) ?? cityTourGuides[0];
@@ -31,9 +26,9 @@ export function CityTours() {
     <section id="destinations" className="section-py bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Tours by City"
-          title="Every Major Tourist Area — Covered"
-          description="Tap a city to see transfers, excursions, and activities available in that area."
+          eyebrow={ui.sections.cityTours.eyebrow}
+          title={ui.sections.cityTours.title}
+          description={ui.sections.cityTours.description}
         />
 
         <div className="scroll-tabs -mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:mt-10 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0">
@@ -58,7 +53,7 @@ export function CityTours() {
             <div className="relative min-h-[200px] sm:min-h-[220px] lg:col-span-2 lg:min-h-full">
               <Image
                 src={city.image}
-                alt={`${city.city}, Jamaica tours`}
+                alt={formatUi(ui.common.cityToursImageAlt, { city: city.city })}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 40vw"
@@ -75,7 +70,7 @@ export function CityTours() {
 
             <div className="p-4 sm:p-6 lg:col-span-3">
               <p className="text-xs font-bold uppercase tracking-wider text-jamaica-green">
-                Popular resorts we serve
+                {ui.common.popularResorts}
               </p>
               <div className="mt-2 flex flex-wrap gap-1.5 sm:gap-2">
                 {city.popularResorts.map((resort) => (
@@ -100,19 +95,20 @@ export function CityTours() {
                           <span
                             className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${typeColors[tour.type]}`}
                           >
-                            {typeLabels[tour.type]}
+                            {ui.tourTypes[tour.type]}
                           </span>
                           <span className="text-sm font-bold leading-snug text-jamaica-black sm:text-base">
                             {tour.name}
                           </span>
                         </div>
                         <p className="mt-1 text-xs font-semibold text-jamaica-green sm:hidden">
-                          From {formatPrice(tour.priceFrom)} USD · {tour.duration}
+                          {formatUi(ui.common.fromPriceUsd, { price: formatPrice(tour.priceFrom) })} ·{" "}
+                          {tour.duration}
                         </p>
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
                         <span className="hidden text-xs font-semibold text-jamaica-green sm:inline">
-                          From {formatPrice(tour.priceFrom)} USD
+                          {formatUi(ui.common.fromPriceUsd, { price: formatPrice(tour.priceFrom) })}
                         </span>
                         <ChevronDown className="h-5 w-5 text-jamaica-green transition-transform group-open:rotate-180" />
                       </div>
@@ -126,7 +122,9 @@ export function CityTours() {
                           <Clock className="h-3.5 w-3.5" />
                           {tour.duration}
                         </span>
-                        <span>From {formatPrice(tour.priceFrom)} USD</span>
+                        <span>
+                          {formatUi(ui.common.fromPriceUsd, { price: formatPrice(tour.priceFrom) })}
+                        </span>
                       </div>
                     </div>
                   </details>
@@ -134,9 +132,9 @@ export function CityTours() {
               </div>
 
               <div className="mt-5 sm:mt-6">
-                <Button href="/#contact" variant="secondary" fullWidthMobile>
+                <Button href="#contact" variant="secondary" fullWidthMobile>
                   <MapPin className="h-4 w-4" />
-                  Book a {city.city} Tour
+                  {formatUi(ui.common.bookCityTour, { city: city.city })}
                 </Button>
               </div>
             </div>
